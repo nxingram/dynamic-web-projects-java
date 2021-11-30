@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Studenti JSON</title>
+</head>
+<body>
+<ul id="lista"></ul>
+
+<script type="text/javascript">
+	const URL = "http://localhost:8080/Es04_StudentiVecchione/api/studenti";
+	
+	var ul = document.getElementById("lista");
+
+	fetch(URL) // chiamata api che restituisce stringa in formato json
+		.then(stringJson => stringJson.json()) // traforma la string in Array di oggetti Json
+		.then(json => {
+			//console.log(json);
+			for (const studente of json) {
+				console.log(studente);
+			}
+		});
+	
+	
+	
+	
+</script>
+
+
+</body>
+</html>
