@@ -37,7 +37,7 @@ public class StudenteIntCtrl extends HttpServlet {
 //			s.append(studenteEs).append(";");
 //		}
 //		
-////		response.getWriter().append("Served at: ").append(request.getContextPath());
+//		response.getWriter().append("Served at: ").append(request.getContextPath());
 //		response.getWriter().print(s.toString());
 		
 		JSONArray jsArray = new JSONArray();
@@ -52,7 +52,7 @@ public class StudenteIntCtrl extends HttpServlet {
 			jsArray.put(obj);
 		}
 		
-		// dire al broser che gli restituiamo un json
+		// dire al browser che gli restituiamo un json
 		response.setContentType("application/json");		
 		
 		// restituire i dati con il writer

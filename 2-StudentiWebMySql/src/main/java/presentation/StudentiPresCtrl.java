@@ -18,18 +18,18 @@ import model.StudenteEs;
 public class StudentiPresCtrl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 		
-	private StudenteDao sti;   
+	private StudenteDao stuDaoImpl;   
 
 	// costruttore
     public StudentiPresCtrl() {
-    	this.sti = new StudenteDaoImpl();
+    	this.stuDaoImpl = new StudenteDaoImpl();
     }
 
     // elenco studenti
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		// studenti presi da db tramite daoimpl
-		ArrayList<StudenteEs> listaStudenti = sti.getAll();
+		ArrayList<StudenteEs> listaStudenti = stuDaoImpl.getAll();
 		
 		
 		// passare gli studenti alla pagina jsp trmite request
@@ -45,13 +45,13 @@ public class StudentiPresCtrl extends HttpServlet {
 	// aggiungi studente
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("sono nella post");
+//		System.out.println("sono nella post");
 		String nome = request.getParameter("nome");
 		String cognome = request.getParameter("cognome");
 		String email = request.getParameter("email");
 		
 		// dao impl aggiunge un record
-		boolean esito = sti.addOne(nome, cognome, email);				
+		boolean esito = stuDaoImpl.addOne(nome, cognome, email);				
 		
 		if(esito) { // se va tutto bene
 			// redireziona su elenco studenti
