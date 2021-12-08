@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Studenti JSON</title>
+</head>
+<body>
+	<h4>Elenco Studenti REST</h4>
+	<div>
+		<ul id="dettagli"></ul>
+	</div>
+		
+	<div>
+		<ul id="lista"></ul>
+	</div>
+
+<script type="text/javascript">
+	const URL = "api/studenti"; // api endpoint
+	
+	var ul = document.getElementById("lista");
+	
+// api request ad un endpoint
+	// chiamata api che restituisce stringa in formato json
+		//traforma la string in Array di oggetti Json
+	fetch(URL) 
+		.then(response => {
+			console.log(response.status); // status code della response
+			return response.json();
+		}) 
+		.then(jsonArray => {
+// 			console.log(json);
+			for (const studente of jsonArray) {				
+// 				console.log(studente);
+
+				// creo nodo li
+				let li = document.createElement("li"); 
+				// inserisco i dati
+				li.innerHTML = studente.cognome + " " + studente.nome + " "; 
+				
+				li.setAttribute("id", studente.id);
+				li.onclick = dettagli;
+
+				// aggiungo alla lista ul
+				ul.appendChild(li);
+				
+			}
+		});
+
+		function dettagli(){
+			// this => li
+			console.log("id: " + this.id); // questo elemento sul quale ho cliccato
+			let ul = document.getElementById("dettagli");
+			ul.innerHTML = "";
+
+
+			fetch("api/studenti/one?id="+this.id)
+			.then(response => {
+				console.log(response.status);
+				return response.json();
+			})
+			.then(studente => {
+				// console.log(studente);
+				for (const key in studente) {
+					if (Object.hasOwnProperty.call(studente, key)) {
+						const element = studente[key];
+						let li = document.createElement("li");
+						li.innerHTML = key +": "+element;
+						ul.appendChild(li);						
+					}
+				}
+			});
+
+		}
+	
+	
+	
+	
+</script>
+
+
+</body>
+</html>

@@ -16,8 +16,8 @@
 	<a href="api/studenti">- api studenti</a>
 	<br>
 	
-	<h6>MVC+REST</h6>
-	<a href="studenti-mvcrest.html">- elenco studenti javascript</a><br>
+	<h6>Html+Javascript+REST</h6>
+	<a href="studenti-rest.html">- elenco studenti javascript</a><br>
 
 </body>
 </html>

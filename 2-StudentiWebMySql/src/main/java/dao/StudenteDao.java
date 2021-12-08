@@ -5,14 +5,17 @@ import java.util.ArrayList;
 import model.StudenteEs;
 
 public interface StudenteDao {
+
+	String FIND_ALL = "select * from studente";	
+	String ADD_ONE = "insert into studente(nome,cognome,email) values(?,?,?)";
+
+	String FIND_ONE = "select * from studente where id =?";
 	
-	// proprietà: static final 
-	String TABLE_NAME = "studente";
-	String FIND_ALL = "select * from " + TABLE_NAME;
-	String ADD_ONE = "insert into "+ TABLE_NAME + "(nome,cognome,email) values(?,?,?)";
-	
-	// metodi: astratti
+	// matodi astratti
 	ArrayList<StudenteEs> getAll(); 	
-	boolean addOne(String nome, String cognome, String email);	
+	boolean addOne(String nome, String cognome, String email);
+	StudenteEs getOne(int id);
+	
+	
 	
 }

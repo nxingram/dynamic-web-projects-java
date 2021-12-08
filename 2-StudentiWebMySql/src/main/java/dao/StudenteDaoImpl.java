@@ -10,7 +10,10 @@ import model.StudenteEs;
 
 public class StudenteDaoImpl implements StudenteDao{
 
-	// Queste proprietà ci servono per eseguire le query
+	// per connetterci al database
+	private DB db = new DB();
+	
+	// queste proprietà ci servono per eseguire le query
 	// e leggere i risultati
 	private Connection conn;
 	private PreparedStatement ps;
@@ -24,7 +27,7 @@ public class StudenteDaoImpl implements StudenteDao{
 		
 		try {
 			// prendo la connessione da db
-			this.conn = DB.connetti();			
+			this.conn = db.connetti();			
 			this.ps = conn.prepareStatement(FIND_ALL);
 			this.rs = ps.executeQuery();
 			
@@ -52,7 +55,7 @@ public class StudenteDaoImpl implements StudenteDao{
 	@Override
 	public boolean addOne(String nome, String cognome, String email) {
 		try {
-			this.conn = DB.connetti();	
+			this.conn = db.connetti();	
 			this.ps = conn.prepareStatement(ADD_ONE);
 			
 			// uno based (parte da 1)
@@ -69,6 +72,36 @@ public class StudenteDaoImpl implements StudenteDao{
 		}
 		
 		return true;
+	}
+
+
+	
+	@Override
+	public StudenteEs getOne(int id) {
+		StudenteEs studente = new StudenteEs();
+		try {
+			// prendo la connessione da db
+			this.conn = db.connetti();			
+			this.ps = conn.prepareStatement(FIND_ONE);
+			ps.setInt(1, id);
+			this.rs = ps.executeQuery();
+			
+			while(this.rs.next()) {
+				// riga corrente
+				
+				studente.setNome(rs.getString("nome"));
+				studente.setCognome(rs.getString("cognome"));
+				studente.setEmail(rs.getString("email"));
+				studente.setId(rs.getInt("id"));
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return studente;
 	}
 
 	
